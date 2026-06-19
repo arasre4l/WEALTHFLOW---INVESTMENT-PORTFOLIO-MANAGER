@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.taskmaster.controllers.MainController">
+    
+    <top>
+        <VBox styleClass="header-container">
+            <HBox alignment="CENTER_LEFT" spacing="20" styleClass="header">
+                <padding><Insets top="20" right="30" bottom="20" left="30"/></padding>
+                
+                <Label text="TaskMaster Pro" styleClass="app-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="themeToggleBtn" text="🌙" styleClass="icon-btn" 
+                        onAction="#handleThemeToggle"/>
+                <Button text="Export JSON" styleClass="header-btn" onAction="#handleExportJSON"/>
+                <Button text="Export CSV" styleClass="header-btn" onAction="#handleExportCSV"/>
+                <Button text="+ Add Task" styleClass="header-btn-primary" onAction="#handleAddTask"/>
+            </HBox>
+            
+            <HBox alignment="CENTER_LEFT" spacing="15" styleClass="filter-bar">
+                <padding><Insets top="15" right="30" bottom="15" left="30"/></padding>
+                
+                <TextField fx:id="searchField" promptText="🔍 Search tasks..." 
+                          styleClass="search-field" prefWidth="300"/>
+                <ComboBox fx:id="statusFilter" promptText="Status" styleClass="filter-combo" 
+                         prefWidth="150"/>
+                <ComboBox fx:id="categoryFilter" promptText="Category" styleClass="filter-combo" 
+                         prefWidth="150"/>
+            </HBox>
+        </VBox>
+    </top>
+    
+    <center>
+        <HBox spacing="20">
+            <padding><Insets top="20" right="30" bottom="20" left="30"/></padding>
+            
+            <VBox spacing="15" HBox.hgrow="ALWAYS">
+                <ScrollPane fitToWidth="true" fitToHeight="true" VBox.vgrow="ALWAYS" 
+                           styleClass="task-scroll">
+                    <VBox fx:id="taskListContainer" spacing="12" styleClass="task-list">
+                        <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
+                    </VBox>
+                </ScrollPane>
+            </VBox>
+            
+            <VBox spacing="20" prefWidth="350" styleClass="sidebar">
+                <VBox spacing="15" styleClass="stats-panel">
+                    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                    
+                    <Label text="📊 Statistics" styleClass="panel-title"/>
+                    
+                    <GridPane hgap="15" vgap="12">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50"/>
+                            <ColumnConstraints percentWidth="50"/>
+                        </columnConstraints>
+                        
+                        <VBox styleClass="stat-card" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="Total Tasks" styleClass="stat-label"/>
+                            <Label fx:id="totalTasksLabel" text="0" styleClass="stat-value"/>
+                        </VBox>
+                        
+                        <VBox styleClass="stat-card" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <Label text="Completed" styleClass="stat-label"/>
+                            <Label fx:id="completedTasksLabel" text="0" styleClass="stat-value"/>
+                        </VBox>
+                        
+                        <VBox styleClass="stat-card" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <Label text="In Progress" styleClass="stat-label"/>
+                            <Label fx:id="inProgressLabel" text="0" styleClass="stat-value"/>
+                        </VBox>
+                        
+                        <VBox styleClass="stat-card" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <Label text="Overdue" styleClass="stat-label"/>
+                            <Label fx:id="overdueLabel" text="0" styleClass="stat-value"/>
+                        </VBox>
+                        
+                        <VBox styleClass="stat-card" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                            <Label text="🍅 Pomodoros" styleClass="stat-label"/>
+                            <Label fx:id="pomodoroCountLabel" text="0" styleClass="stat-value"/>
+                        </VBox>
+                        
+                        <VBox styleClass="stat-card" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                            <Label text="Completion Rate" styleClass="stat-label"/>
+                            <Label fx:id="completionRateLabel" text="0%" styleClass="stat-value"/>
+                        </VBox>
+                    </GridPane>
+                </VBox>
+                
+                <VBox spacing="15" styleClass="pomodoro-panel">
+                    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                    
+                    <Label text="🍅 Pomodoro Timer" styleClass="panel-title"/>
+                    <Label fx:id="pomodoroTimerLabel" text="25:00" styleClass="pomodoro-timer"/>
+                    
+                    <HBox spacing="10" alignment="CENTER">
+                        <Button fx:id="pomodoroStartBtn" text="Start" styleClass="pomodoro-btn" 
+                               onAction="#handlePomodoroControl"/>
+                        <Button text="Reset" styleClass="pomodoro-btn" 
+                               onAction="#handlePomodoroReset"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>
